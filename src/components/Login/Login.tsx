@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form";
 import { User } from '../interfaces';
 
 import { authService } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
     const { register, formState: { errors }, handleSubmit } = useForm({ mode: 'onSubmit', reValidateMode: 'onChange' });
+    const navigate = useNavigate();
 
     const loginUser = (data: User) => {
         authService.login(data)
-            .then(response => {
-                console.log(response);
+            .then(() => {
+                navigate('/');
             })
             .catch(err => {
                 console.log(err);
@@ -32,7 +34,7 @@ const Login: React.FC = () => {
                 </article>
 
                 <article>
-                    <input type="submit" value="Register" />
+                    <input type="submit" value="Login" />
                 </article>
             </form>
         </section>

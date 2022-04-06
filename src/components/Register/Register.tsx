@@ -1,17 +1,19 @@
 import React from "react"
 
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { User } from '../interfaces';
 
 import { authService } from "../../services/authService";
 
 const Register: React.FC = () => {
     const { register, formState: { errors }, handleSubmit } = useForm({ mode: 'onSubmit', reValidateMode: 'onChange' });
+    const navigate = useNavigate();
 
     const registerUser = (data: User) => {
         authService.register(data)
-            .then(response => {
-                console.log(response);
+            .then(() => {
+                navigate('/');
             })
             .catch(err => {
                 console.log(err);
