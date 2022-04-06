@@ -1,40 +1,20 @@
 import { baseUrl } from "../constants";
 import { User } from "../components/interfaces";
 
+import { requester } from '../requester';
+
 const register = async (data: User) => {
-    const response = await fetch(`${baseUrl}/auth/register/`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
+    const result = await requester.post(`${baseUrl}/auth/register/`, data);
 
-    const responseData = await response.json();
-
-    if (!response.ok) {
-        throw new Error(responseData);
-    }
-
-    return responseData;
+    localStorage.setItem('user', JSON.stringify({ user_id: result.user_id, token: result.token }));
+    return result;
 }
 
 const login = async (data: User) => {
-    const response = await fetch(`${baseUrl}/auth/login/`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
+    const result = await requester.post(`${baseUrl}/auth/login/`, data);
 
-    const responseData = await response.json();
-
-    if (!response.ok) {
-        throw new Error(responseData);
-    }
-
-    return responseData;
+    localStorage.setItem('user', JSON.stringify({ token: result.token }));
+    return result;
 }
 
 export const authService = { register, login };
