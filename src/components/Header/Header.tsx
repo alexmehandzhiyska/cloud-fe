@@ -4,7 +4,6 @@ import { authService } from '../../services/authService';
 
 const Header = () => {
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-    console.log(user);
 
     const navigate = useNavigate();
         
@@ -20,15 +19,15 @@ const Header = () => {
 
             <nav>
                 {!user && 
-                    <ul>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/register">Register</Link></li>
+                    <ul className="flex">
+                        <li className="mx-5"><Link to="/login">Login</Link></li>
+                        <li className="mx-5"><Link to="/register">Register</Link></li>
                     </ul>
                 }
 
                 {user &&
-                    <ul>
-                        <li onClick={() => logout()}>Logout</li>
+                    <ul className="flex">
+                        <li className="mx-5" onClick={() => logout()}>Logout</li>
                     </ul>
                 }
                
