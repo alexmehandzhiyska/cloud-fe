@@ -17,4 +17,11 @@ const login = async (data: User) => {
     return result;
 }
 
-export const authService = { register, login };
+const logout = async (token: string) => {
+    const result = await requester.post(`${baseUrl}/auth/logout/`, null, token);
+
+    localStorage.removeItem('user');
+    return result;
+}
+
+export const authService = { register, login, logout };
